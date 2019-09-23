@@ -1,0 +1,18 @@
+#header{
+    text-align: center;
+    line-height: 5rem;
+    font-size: 1.8rem;
+    background: rgba(0,0, 0, 0.8);
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+#header a{
+    color: inherit;
+}
+#header .iconfanhui{
+    position: absolute;
+    left: 2rem;
+    cursor: pointer;
+}

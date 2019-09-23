@@ -1,0 +1,71 @@
+#footer{
+    text-align: center;
+    font-size: 0.8rem;
+    background: rgba(0,0, 0, 0.9);
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 7rem;
+}
+#footer .bar{
+    display: inline-block;
+    width: 70%;
+    height: 0.2rem;
+    background: #ccc;
+    margin: 0 2.5%;
+    margin-top: 0.6rem;
+    position: relative;
+}
+#footer .progress{
+    margin-top: 1.4rem;
+}
+#footer .way{
+    line-height: 4rem;
+    display: flex;
+    justify-content: space-around;
+}
+#footer .iconfont{
+    font-size: 3rem;
+
+}
+#footer .iconfont{
+    font-size: 3rem;
+}
+#footer .how{
+    font-size: 2rem;
+}
+#footer .iconziyuan{
+    font-size: 1.6rem;
+}
+#footer .pause_run{
+    font-size: 4rem;
+}
+#footer .progress .barBall{
+    display: inline-block;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: deepskyblue;
+    top: -0.4rem;
+    left: -0.5rem;
+}
+#footer .progress .barNow{
+    display: inline-block;
+    position: absolute;
+    height: 0.2rem;
+    background: deepskyblue;
+    top: 0;
+    left: 0;
+}
+#footer .way a{
+    display: inline;
+    text-decoration: none;
+    color: white;
+}
+#footer .way a span{
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}

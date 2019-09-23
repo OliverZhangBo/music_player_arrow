@@ -1,0 +1,9 @@
+html{
+    font-size: 3.125vw !important;
+    height: 100%;
+    width: 100%;
+}
+#root, #app,body{
+    width: 100%;
+    height: 100% ;
+}
