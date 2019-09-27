@@ -12,57 +12,38 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### V 0.0.1
+时间： 2019.9.23
+简单地完成了初步的模型，包括四个主要组件，Header，Footer，musicList，Lyric
+1. 数据来源
+    通过反向代理得到歌曲列表，包括 mid， 歌曲名， 歌手， 歌曲链接， 歌词链接， 图片链接
+2. 组件
+    1）Header, 通过编程式路由实现从 Lyric 跳转到 musicList；
+    2）musicList， 通过反向代理获取数据，获得音乐列表；通过动态路由实现 musicList 跳转到 Lyric 页；通过 mid 来确定哪一首歌被选中
+    3）Footer, 通过 play() pause() 控制播放暂停， 通过mid确定哪一首歌播放
+    4）Lyric， 通过 currTime 来确定目前应该播放的歌词 
+3. store
+    1）播放状态  是否在播放
+    2）播放音乐id
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### V 0.1.0
+时间： 2019.9.24 
+先解释一下为什么版本直接变成0.1.0了，因为这一次的修改将会很大
+1. 音乐数据将会放到store中
+2. 全用ES6写法
+3. 删除id = app 的 div 
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+备份 api "backup" : "https://api.mlwei.com/"
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

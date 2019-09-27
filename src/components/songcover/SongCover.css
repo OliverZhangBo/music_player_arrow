@@ -1,0 +1,27 @@
+#songCover{
+    display: flex;
+    height: 100%;
+    /* background: rgba(98, 64, 35, 0.401);*/
+    background:url("/img/songCoverBg2.jpg");
+    background-size: cover;
+
+    
+}
+
+#songCover .container{
+    width: 20rem;
+    height: 20rem;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#songCover .container img{
+    animation: rotatePic 5s linear infinite;
+    width: 100%;
+}
+
+@keyframes rotatePic{
+    0%{ transform: rotate(0) }
+    100%{ transform: rotate(360deg) }
+}

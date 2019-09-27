@@ -32,5 +32,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://api.mlwei.com/"
+  "proxy":  "http://106.54.105.194"
+      
 }

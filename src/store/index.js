@@ -1,47 +1,55 @@
 import { createStore, combineReducers } from "redux";
 
-function isIconBackHeaderReducer(state=true, action){
-    if(action.type==="IS_ICON_BACK_HEADER"){
+function musicListReducer(state=[], action){
+    if(action.type === 'MUSIC_LIST'){
         return action.payload;
     }else{
         return state;
     }
 }
 
-function musicIDReducer(state="",action){
-    if(action.type==="MUSIC_ID"){
+function nowMusicIndexReducer(state=0, action){
+    if(action.type === 'NOW_MUSIC_INDEX'){
         return action.payload;
     }else{
         return state;
     }
 }
 
-function isMusicPlayReducer(state=false, action){
-    if(action.type==="IS_MUSIC_PLAY"){
+function musicPlayingStateReducer(state=false, action){
+    if(action.type === 'MUSIC_PLAYING_STATE'){
         return action.payload;
     }else{
         return state;
     }
 }
 
-function musicTitleReducer(state="巅峰榜 热歌", action){
-    if(action.type==="MUSIC_TITLE"){
+function whichComponentNowReducer(state='', action){
+    if(action.type === 'WHICH_COM_NOW'){
         return action.payload;
     }else{
         return state;
     }
 }
 
-function preMusicIDReducer(state="", action){
-    if(action.type==="PRE_MUSIC_ID"){
+function nowMusicLyricListReducer(state=[], action){
+    if(action.type === 'NOW_LYRIC_LIST'){
         return action.payload;
     }else{
         return state;
     }
 }
 
-function nextMusicIDReducer(state="", action){
-    if(action.type==="NEXT_MUSIC_ID"){
+function nowMusicLyricIndexReducer(state=0, action){
+    if(action.type === 'NOW_LYRIC_INDEX'){
+        return action.payload;
+    }else{
+        return state;
+    }
+}
+
+function nowMusicPicReducer(state='', action){
+    if(action.type === 'NOW_MUSIC_PIC'){
         return action.payload;
     }else{
         return state;
@@ -49,12 +57,13 @@ function nextMusicIDReducer(state="", action){
 }
 
 var reducer = combineReducers({
-    isIconBackHeader : isIconBackHeaderReducer,
-    musicID : musicIDReducer,
-    isMusicPlay:isMusicPlayReducer,
-    musicTitle:musicTitleReducer,
-    preMusicID:preMusicIDReducer,
-    nextMusicID:nextMusicIDReducer
+   musicList : musicListReducer,
+   nowMusicIndex : nowMusicIndexReducer,
+   musicPlayingState : musicPlayingStateReducer,
+   whichComponentNow : whichComponentNowReducer,
+   nowMusicLyricList : nowMusicLyricListReducer,
+   nowMusicLyricIndex : nowMusicLyricIndexReducer,
+   nowMusicPic : nowMusicPicReducer,
 })
 
 var store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())

@@ -3,113 +3,108 @@ import "./Lyric.css"
 
 import { connect } from "react-redux";
 
-import axios from "axios";
+import axios from 'axios';
 
 class LyricUI extends Component{
-    constructor(){
-        super();
-        this.state={
-            lyricList:[],
-            whichOneLyricSelected:-1,
-        }
-    }
     render(){
         return(
             <div id="lyric">
                 <div className="container">
-                    <ul ref="lyricUl">
-                        {/* <li className="title">年轮</li>
-                        <li>数着一圈圈年轮</li>
-                        <li className="selected">我认真</li> */}
+                    <ul ref="lyricUl" onTouchStart = { ()=>{ this.toPic() } } >   
                         {
-                            this.state.lyricList.map((val,index)=>{
+                            this.props.nowMusicLyricList.map((val, index)=>{
                                 return(
-                                    <li className={ this.state.whichOneLyricSelected===index?"selected":"" } key={index}>{ val.lyric}</li>
-                                )
+                                    <li className={ this.props.nowMusicLyricIndex===index ? 'selected' : '' } key={ index }>{ val.co_lyric }</li>
+                                ) 
                             })
                         }
+                                       
                     </ul>
                 </div>
             </div>
         );
     }
-    componentDidMount(){
-        this.props.IS_ICON_BACK_HEADER();
-        var mid=this.props.match.params.mid;
-        axios.get("/music/api",{
-            params:{
-                "key":523077333,
-                "cache":1,
-                "type":"lrc",
-                "id":mid
-            }
-        }).then((res)=>{
-            this.setState({
-                lyricList:this.formatLyric(res.data)
-            })
-        })
-        if(this.props.isMusicPlay){  // 播放状态
-            this.playLyric();
-        }else{
-            this.pauseLyric();
-        }
 
-    }
-    formatLyric(data){
-         var result=[];
-         var re=/\[([^\]]+)\]([^[]+)/g;  
-         data.replace(re,($0,$1,$2)=>{
-             result.push({time : this.formatTime($1) , lyric:$2})
-         })
-         return result;
-    }
-    formatTime(time){
-        var timeArr = time.split(":");
-        return (parseFloat(timeArr[0]*60) +  parseFloat(timeArr[1])).toFixed(2)
-    }
-    playLyric(){
-        this.lyricRunnig();
-        this.timer = setInterval(this.lyricRunnig.bind(this),500);
-    }
-    pauseLyric(){
-        clearInterval(this.timer);
-    }
-    lyricRunnig(){
-        var audioElem = document.getElementById("audioElem");
-        var currentTime = audioElem.currentTime;
-        var lyricList = this.state.lyricList;
-        var lyricUl = this.refs.lyricUl;
-        lyricList[lyricList.length]=audioElem.duration;
-        for(var i=0;i<lyricList.length-1;i++){
-            if(currentTime>=lyricList[i].time && currentTime<lyricList[i+1].time){
-                this.setState({
-                    whichOneLyricSelected: i
-                })
-                if(i>6){
-                    lyricUl.style.top = -(lyricUl.firstChild.offsetHeight * (i-3)) +"px"
-                }
-            }
+    componentDidMount(){  // 代理获取歌词
+        this.props.WHICH_COM_NOW("lyric");
+        axios.get(this.props.musicList[this.props.nowMusicIndex].lrc).then((res)=>{
+            let nowLyric = [...this.formatLyric(res.data),{co_time:1000, co_lyric: 'arrow'}];
+            this.props.NOW_LYRIC_LIST(nowLyric);
+        })
+        if(this.props.musicPlayingState){
+            this.lyricRunnig();
+            this.interval = setInterval(()=>this.lyricRunnig(), 1000);
+        }else{
+            clearInterval(this.interval);
         }
     }
-    componentWillUnmount(){  // 组件结束时结束定时器
-        clearInterval(this.timer);
+
+    componentDidUpdate(){
+        if(this.props.musicPlayingState && this.interval==null){
+            this.lyricRunnig();
+            this.interval = setInterval(()=>this.lyricRunnig(), 1000);
+        }else{
+            clearInterval(this.interval);
+            this.interval=null;
+        }
     }
+    
+    lyricRunnig(){
+        // 播放状态  歌词向上移动
+        let nowMusicLyricIndex = this.props.nowMusicLyricIndex;
+        if(nowMusicLyricIndex > 5){
+            this.refs.lyricUl.style.top = -this.refs.lyricUl.firstElementChild.offsetHeight * (nowMusicLyricIndex-5) + "px";
+        }else{
+            this.refs.lyricUl.style.top = 0;
+        }
+    }
+
+    formatLyric(nowLyric){
+        const reg =  /\[([^\]]+)\]([^[]+)/g;
+        let result = [];
+        nowLyric.replace(reg,($0, $1, $2)=>{
+            result.push({ co_time:this.timeFormat($1), co_lyric: $2})
+        }); 
+        return result;
+    }
+
+    timeFormat(time){
+        let timeArr = time.split(":");  
+        return parseInt(timeArr[0]*60) + parseInt(timeArr[1]);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+        this.interval=null;
+    }
+
+    toPic(){
+        this.props.history.push("/songcover")
+    }
+    
 }
 
 function mapStateToProps(state){
     return{
-        isMusicPlay:state.isMusicPlay
+        musicList : state.musicList,
+        nowMusicIndex : state.nowMusicIndex,
+        nowMusicLyricList : state.nowMusicLyricList,
+        nowMusicLyricIndex : state.nowMusicLyricIndex,
+        musicPlayingState : state.musicPlayingState
     };
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        IS_ICON_BACK_HEADER(){
-            dispatch({type:"IS_ICON_BACK_HEADER",payload:true})
+        WHICH_COM_NOW(which){
+            dispatch({ type:'WHICH_COM_NOW', payload:which })
+        },
+        NOW_LYRIC_LIST(list){
+            dispatch({ type:'NOW_LYRIC_LIST', payload:list })
         }
     };
 }
 
-var Lyric = connect(mapStateToProps,mapDispatchToProps)(LyricUI)
+let Lyric = connect(mapStateToProps,mapDispatchToProps)(LyricUI)
 
 export default Lyric;
