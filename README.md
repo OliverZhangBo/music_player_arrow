@@ -35,7 +35,9 @@ You will also see any lint errors in the console.
 
 4. 剪影
 ![Image text](https://github.com/Arrow-zb/music_player_arrow/blob/master/arrow%20musicplayer%20screen%20shot/musicList.png)
+
 ![Image text](https://github.com/Arrow-zb/music_player_arrow/blob/master/arrow%20musicplayer%20screen%20shot/lyric.png)
+
 ![Image text](https://github.com/Arrow-zb/music_player_arrow/blob/master/arrow%20musicplayer%20screen%20shot/pic.png)
 
 
